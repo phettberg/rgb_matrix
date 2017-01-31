@@ -8,36 +8,48 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../control.c \
+../highside.c \
+../lowside.c \
 ../main.c \
 ../timer.c \
 ../tm4c123gh6pm_startup_ccs.c 
 
 OBJS += \
 ./control.obj \
+./highside.obj \
+./lowside.obj \
 ./main.obj \
 ./timer.obj \
 ./tm4c123gh6pm_startup_ccs.obj 
 
 C_DEPS += \
 ./control.d \
+./highside.d \
+./lowside.d \
 ./main.d \
 ./timer.d \
 ./tm4c123gh6pm_startup_ccs.d 
 
 C_DEPS__QUOTED += \
 "control.d" \
+"highside.d" \
+"lowside.d" \
 "main.d" \
 "timer.d" \
 "tm4c123gh6pm_startup_ccs.d" 
 
 OBJS__QUOTED += \
 "control.obj" \
+"highside.obj" \
+"lowside.obj" \
 "main.obj" \
 "timer.obj" \
 "tm4c123gh6pm_startup_ccs.obj" 
 
 C_SRCS__QUOTED += \
 "../control.c" \
+"../highside.c" \
+"../lowside.c" \
 "../main.c" \
 "../timer.c" \
 "../tm4c123gh6pm_startup_ccs.c" 

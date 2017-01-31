@@ -8,8 +8,8 @@
 #ifndef HIGHSIDE_H_
 #define HIGHSIDE_H_
 
-
-
+void highside_init(void);
+void highside_setOutput(uint16_t bitfield);
 
 
 #endif /* HIGHSIDE_H_ */

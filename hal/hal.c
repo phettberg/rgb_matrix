@@ -9,6 +9,8 @@
 #include "hal.h"
 #include "timer.h"
 
+
+/* GPIO */
 #define MAX_PINS (8)
 static Callback_t PORTA_callbacks[MAX_PINS] = {0};
 
@@ -74,13 +76,15 @@ void gpio_enableInterrupt(GPIOA_Type *gpio, uint8_t pin, Callback_t callback) {
 	}
 }
 
+
+/* SPI - enable SSI3 */
 void spi_init(void) {
 	SYSCTL->RCGCSSI = (1<<3);
-	SYSCTL->RCGCGPIO |= PORTD;
-	GPIOD->AFSEL |= 0x0D; //
-	GPIOD->PCTL |= (1<<0) | (1<<8) | (1<<12);
-	GPIOD->DEN |= 0x4F;
-	GPIOD->DIR |= 0x42;
+	gpio_enable(PORTD);
+	gpio_alternateFunctions(GPIOD_AHB, 0x0D);
+	gpio_digitalEnable(GPIOD_AHB, 0x0D);
+	gpio_direction(GPIOD_AHB, 0x02);
+	GPIOD_AHB->PCTL |= (1<<0) | (1<<8) | (1<<12);
 
 	SSI3->CR1 &= ~(1<<1);
 	SSI3->CR1 = 0x00000000;
@@ -93,6 +97,12 @@ void spi_init(void) {
 	SSI3->CR1 |= (1<<1);
 }
 
+void writeSPI(uint8_t data) {
+	SSI3->DR = data;
+	while( (SSI3->SR & (1<<0))==0);
+}
+
+/* TIMER */
 void timer_init(void) {
 	SYSCTL->RCGCTIMER |= (1<<0);
 	TIMER0->CTL &= ~(1<<0);
@@ -116,6 +126,7 @@ void TIMER0A_Handler(void) {
 	TIMER0->ICR |= (1<<0);
 	timer_100us++;
 }
+
 
 void hal_init(void) {
 	timer_init();

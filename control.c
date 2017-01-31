@@ -5,6 +5,8 @@
  *      Author: patrick
  */
 
+//TODO debounce
+
 #include "hal.h"
 
 #define DOWN 	0x04
@@ -78,9 +80,6 @@ void _callback(uint8_t pin) {
 
 void control_init(void) {
 	gpio_enable(PORTA);
-//	gpio_direction(GPIOA_AHB, 0x03);
-//	gpio_setPullups(GPIOA_AHB, 0xFC);
-//	gpio_digitalEnable(GPIOA_AHB, 0xFC);
 	gpio_direction(GPIOA_AHB, DIRECTIONS);
 	gpio_setPullups(GPIOA_AHB, PINS);
 	gpio_digitalEnable(GPIOA_AHB, PINS);
