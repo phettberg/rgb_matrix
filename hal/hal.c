@@ -8,6 +8,7 @@
 #include "main.h"
 #include "hal.h"
 #include "timer.h"
+#include "display.h"
 
 
 /* GPIO */

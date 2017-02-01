@@ -9,6 +9,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./control.obj" \
+"./display.obj" \
 "./highside.obj" \
 "./lowside.obj" \
 "./main.obj" \
@@ -161,8 +162,8 @@ rgb_matrix.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "control.d" "highside.d" "lowside.d" "main.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "hal/hal.d" "hal/hal_tiva/cmsis/Source/system_FM4F.d" 
-	-$(RM) "control.obj" "highside.obj" "lowside.obj" "main.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "hal/hal.obj" "hal/hal_tiva/cmsis/Source/system_FM4F.obj" 
+	-$(RM) "control.d" "display.d" "highside.d" "lowside.d" "main.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "hal/hal.d" "hal/hal_tiva/cmsis/Source/system_FM4F.d" 
+	-$(RM) "control.obj" "display.obj" "highside.obj" "lowside.obj" "main.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "hal/hal.obj" "hal/hal_tiva/cmsis/Source/system_FM4F.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

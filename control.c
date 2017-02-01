@@ -8,6 +8,10 @@
 //TODO debounce
 
 #include "hal.h"
+#include "control.h"
+
+
+timer_var_t timer_debounce;
 
 #define DOWN 	0x04
 #define LEFT 	0x08
@@ -44,6 +48,27 @@ uint8_t inputFlags = 0;
 //	}
 //}
 
+static uint8_t debounce(uint8_t pin) {
+  static uint8_t button_state;
+  static uint8_t button_cnt;
+
+  if(!timer_debounce) {
+	uint8_t input=pin;
+    if(input != button_state) {
+      button_cnt--;
+      if(button_cnt ==  255) {
+        button_cnt=3;
+        button_state=input;
+        if(input) return 1;
+      }
+    }
+    else button_cnt=3;
+    timer_debounce=TIMER_MSEC(2);
+
+  }
+  return 0;
+}
+
 uint8_t downPressed(void) {
 	if(!(inputFlags & DOWN)) return 0;
 	inputFlags &= ~DOWN;
@@ -75,6 +100,7 @@ uint8_t centerPressed(void) {
 }
 
 void _callback(uint8_t pin) {
+//	if(debounce(pin)) inputFlags |= (1<<pin);
 	inputFlags |= (1<<pin);
 }
 

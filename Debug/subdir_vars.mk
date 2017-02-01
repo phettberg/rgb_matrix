@@ -8,6 +8,7 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../control.c \
+../display.c \
 ../highside.c \
 ../lowside.c \
 ../main.c \
@@ -16,6 +17,7 @@ C_SRCS += \
 
 OBJS += \
 ./control.obj \
+./display.obj \
 ./highside.obj \
 ./lowside.obj \
 ./main.obj \
@@ -24,6 +26,7 @@ OBJS += \
 
 C_DEPS += \
 ./control.d \
+./display.d \
 ./highside.d \
 ./lowside.d \
 ./main.d \
@@ -32,6 +35,7 @@ C_DEPS += \
 
 C_DEPS__QUOTED += \
 "control.d" \
+"display.d" \
 "highside.d" \
 "lowside.d" \
 "main.d" \
@@ -40,6 +44,7 @@ C_DEPS__QUOTED += \
 
 OBJS__QUOTED += \
 "control.obj" \
+"display.obj" \
 "highside.obj" \
 "lowside.obj" \
 "main.obj" \
@@ -48,6 +53,7 @@ OBJS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../control.c" \
+"../display.c" \
 "../highside.c" \
 "../lowside.c" \
 "../main.c" \

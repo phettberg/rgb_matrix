@@ -51,14 +51,27 @@ static void _clr(GPIO_t *gpioCtrl, uint8_t pin) {
 	gpioCtrl->DATA |= pin;
 }
 
-void highside_setOutput(uint16_t bitfield) {
-	if(bitfield&0x00FF) {
-		hsDriver.dataPort->DATA = (uint8_t)bitfield&0x00FF;
+//void highside_setOutput(uint16_t bitfield) {
+//	if(bitfield&0x00FF) {
+//		hsDriver.dataPort->DATA = (uint8_t)bitfield&0x00FF;
+//		_clr(hsDriver.ctrlPort, DRV2_CLR);
+//		_clk(hsDriver.ctrlPort, DRV1_CLK);
+//	}
+//	else {
+//		hsDriver.dataPort->DATA = (uint8_t)((bitfield>>8)&0x00FF);
+//		_clr(hsDriver.ctrlPort, DRV1_CLR);
+//		_clk(hsDriver.ctrlPort, DRV2_CLK);
+//	}
+//}
+
+void highside_setOutput(uint8_t bit) {
+	if(bit < 8) {
+		hsDriver.dataPort->DATA = (1<<bit);
 		_clr(hsDriver.ctrlPort, DRV2_CLR);
 		_clk(hsDriver.ctrlPort, DRV1_CLK);
 	}
 	else {
-		hsDriver.dataPort->DATA = (uint8_t)((bitfield>>8)&0x00FF);
+		hsDriver.dataPort->DATA = (1<<(bit-8));
 		_clr(hsDriver.ctrlPort, DRV1_CLR);
 		_clk(hsDriver.ctrlPort, DRV2_CLK);
 	}
