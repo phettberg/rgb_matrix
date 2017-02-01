@@ -77,4 +77,8 @@ void highside_setOutput(uint8_t bit) {
 	}
 }
 
+void highside_clearOutput(void) {
+	_clr(hsDriver.ctrlPort, DRV1_CLR);
+	_clr(hsDriver.ctrlPort, DRV2_CLR);
+}
 

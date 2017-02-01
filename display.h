@@ -13,7 +13,8 @@
 
 extern timer_var_t timer_display;
 void display_drawPixel(int16_t x, int16_t y, uint8_t color);
-void display_process();
+void display_process(void);
+void display_refresh(void);
 void display_clear(void);
 
 

@@ -19,7 +19,9 @@ void GPIOA_Handler(void) {
 	for (int pin = 0; pin < MAX_PINS; pin++) {
 		if ((GPIOA_AHB->RIS & (1 << pin))  !=0) {
 			if (PORTA_callbacks[pin] != 0) {
+//				GPIOA_AHB->IM &= ~(1<<pin);
 				PORTA_callbacks[pin](pin);
+//				GPIOA_AHB->IM |= (1<<pin);
 			}
 			GPIOA_AHB->ICR |= (1 << pin);
 		}

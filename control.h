@@ -21,6 +21,7 @@
 extern timer_var_t timer_debounce;
 
 void control_init(void);
+void control_process(void);
 uint8_t downPressed(void);
 uint8_t leftPressed(void);
 uint8_t rightPressed(void);

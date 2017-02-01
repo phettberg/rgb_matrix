@@ -13,6 +13,7 @@
 void highside_init(void);
 //void highside_setOutput(uint16_t bitfield);
 void highside_setOutput(uint8_t);
+void highside_clearOutput(void);
 
 
 #endif /* HIGHSIDE_H_ */
