@@ -9,11 +9,12 @@
 #include "display.h"
 #include "control.h"
 #include "stdlib.h"
+#include "string.h"
 #include "time.h"
 
 typedef enum {LEFT, DOWN, RIGHT} direction_t;
 
-#define FPS	25
+#define FPS	100
 
 #define PIECEWIDTH 	 4
 #define PIECEHEIGHT	 4
@@ -21,6 +22,7 @@ typedef enum {LEFT, DOWN, RIGHT} direction_t;
 typedef enum {OO=0, ZZ, SS, II, JJ, LL, TT } shape_t;
 
 typedef struct {
+	uint8_t active;
 	shape_t shape;
 	uint8_t rotation;
 	uint8_t maxrot;
@@ -36,18 +38,25 @@ timer_var_t timer_falling;
 timer_var_t timer_moveSideways;
 timer_var_t timer_moveDown;
 
-/* TODO move to flash? */
-uint8_t pieces[7][4][PIECEHEIGHT][PIECEWIDTH] = {O, Z, S, I, J, L, T};
+timer_var_t fallingTime_ms;
+
+uint8_t game_start=0;
 
 
-void getNewPiece(piece_t *piece) {
+uint8_t plane[HEIGHT][WIDTH];
+
+#include "tetrominos.h"
+uint8_t pieces[7][4][PIECEHEIGHT][PIECEWIDTH] = {O, Z, S, I, J, L, T}; /* TODO move to flash? */
+
+
+static void getNewPiece(piece_t *piece) {
 	uint8_t number;
-	srand(time(NULL));
-	number=rand()%TT+1;
+	number=rand()%(TT+1);
 
 	piece->shape=(shape_t)number;
 	piece->rotation=0;
 	switch(piece->shape) {
+		default:
 		case OO: piece->maxrot=0; break;
 		case ZZ:
 		case SS:
@@ -56,23 +65,22 @@ void getNewPiece(piece_t *piece) {
 		case LL:
 		case TT: piece->maxrot=3; break;
 	}
-//	piece.x=(int16_t)(WIDTH/2)-(int16_t)(PIECEWIDTH/2);
-//	piece.y=-2;
 	piece->x=2;
 	piece->y=-2;
+	piece->active=1;
 }
 
-static void addToBoard(piece_t *piece) {
+static void addToPlane(piece_t *piece) {
 	for(int x=0; x<PIECEWIDTH; ++x) {
 		for(int y=0; y<PIECEHEIGHT; ++y) {
 			if(pieces[piece->shape][piece->rotation][y][x] != 0) {
-				matrixbuffer[backindex][x + piece->x][y + piece->y]=pieces[piece->shape][piece->rotation][y][x];
+				plane[y + piece->y][x + piece->x]=pieces[piece->shape][piece->rotation][y][x];
 			}
 		}
 	}
 }
 
-static uint8_t isOnBoard(int16_t x, int16_t y) {
+static uint8_t isOnPlane(int16_t x, int16_t y) {
 	return (x >= 0 && x < WIDTH && y < HEIGHT);
 }
 
@@ -81,60 +89,44 @@ static uint8_t isValidPosition(piece_t *piece, int16_t adjX, int16_t adjY) {
 		for(int y=0; y<PIECEHEIGHT; ++y) {
 			if((y + piece->y + adjY) < 0 || pieces[piece->shape][piece->rotation][y][x] == 0)
 				continue;
-			if(!isOnBoard(x + piece->x + adjX, y + piece->y + adjY))
+			if(!isOnPlane(x + piece->x + adjX, y + piece->y + adjY))
 				return 0;
-			if(matrixbuffer[backindex][x + piece->x + adjX][y + piece->y + adjY] != 0)
-				return 0;
+			if(plane[y + piece->y + adjY][x + piece->x + adjX] != 0) {
+					return 0;
+			}
 		}
 	}
 	return 1;
 }
 
-//static uint8_t isValidPosition(piece_t *piece, int16_t adjX, int16_t adjY) {
-//	for(int x=0; x<PIECEWIDTH; ++x) {
-//		for(int y=0; y<PIECEHEIGHT; ++y) {
-//			if((y + piece->y + adjY) < 0 || pieces[piece->shape][piece->rotation][y][x] == 0)
-//				continue;
-//			if(!isOnBoard(x + piece->x + adjX, y + piece->y + adjY))
-//				return 0;
-//			if(matrixbuffer[backindex][x + piece->x + adjX][y + piece->y + adjY] != 0)
-//				return 0;
-//		}
-//	}
-//	return 1;
-//}
-
-uint8_t isCompleteLine(int16_t y) {
+static uint8_t isCompleteLine(int16_t y) {
 	for(int x=0;x<WIDTH;++x) {
-		if(matrixbuffer[backindex][x][y] == 0)
+		if(plane[y][x] == 0)
 			return 0;
-	return 1;
 	}
+	return 1;
 }
 
-uint8_t removeCompleteLines() {
+static uint8_t removeCompleteLines() {
 	uint8_t numLinesRemoved = 0;
-	uint8_t y=HEIGHT - 1;
-	while(y>=0) {
-		if (isCompleteLine(y)) {
-			for(int z=y;z>=0;--z){
+	int16_t actY=HEIGHT-1;
+	while(actY>=0) {
+		if (isCompleteLine(actY)) {
+			for(int y=actY;y>=0;y--) {
 				for(int x=0;x<WIDTH;++x) {
-					matrixbuffer[backindex][x][z] = matrixbuffer[backindex][x][z-1];
+					plane[y][x] = plane[y-1][x];
 				}
 			}
 			for(int x=0;x<WIDTH;++x) {
-				matrixbuffer[backindex][x][0] = 0;
+				plane[0][x] = 0;
 			}
-			numLinesRemoved++;
 		}
-		else {
-			y--;
-		}
+		else actY--;
 	}
 	return numLinesRemoved;
 }
 
-void drawPiece(piece_t *piece) {
+static void drawPiece(piece_t *piece) {
 	for(int x=0; x<PIECEWIDTH; ++x) {
 		for(int y=0; y<PIECEHEIGHT; ++y) {
 			display_drawPixel(piece->x + x, piece->y +y, pieces[piece->shape][piece->rotation][y][x]);
@@ -143,27 +135,33 @@ void drawPiece(piece_t *piece) {
 }
 
 
-
-
-uint8_t movingDown = 0;
-uint8_t movingLeft = 0;
-uint8_t movingRight = 0;
-uint8_t begin = 0;
-
 void game_init(void) {
+	srand(time(NULL));
+	fallingTime_ms=1000;
 }
 
-void game_process(void) {
-	if(!begin) getNewPiece(&fallingPiece);
-	begin=1;
+void game_restart(void) {
+	memset(plane, 0, WIDTH * HEIGHT);
+	getNewPiece(&fallingPiece);
+	game_start=1;
+}
+
+uint8_t game_process(void) {
+	if(!game_start) return 0;
+
+	if(!fallingPiece.active) {
+		getNewPiece(&fallingPiece);
+	}
+	if(!isValidPosition(&fallingPiece, 0, 0)) return 0;
 
 	if(leftPressed() && isValidPosition(&fallingPiece, -1, 0)) {
 		fallingPiece.x-=1;
-		movingLeft = 1;
 	}
 	else if(rightPressed() && isValidPosition(&fallingPiece, 1, 0)) {
 		fallingPiece.x+=1;
-		movingRight = 1;
+	}
+	else if(downPressed() && isValidPosition(&fallingPiece, 0, 1)) {
+		fallingPiece.y+=1;
 	}
 	else if(buttonPressed()) {
 		fallingPiece.rotation = (fallingPiece.rotation+1)&fallingPiece.maxrot;
@@ -171,31 +169,33 @@ void game_process(void) {
 			fallingPiece.rotation = (fallingPiece.rotation-1)&fallingPiece.maxrot;
 		}
 	}
-	else if(downPressed() && isValidPosition(&fallingPiece, 0, 1)) {
-		fallingPiece.y+=1;
-		movingDown = 1;
+	else if(centerPressed()) {
+		int16_t yPos;
+		for(yPos=1;yPos<HEIGHT;++yPos) {
+			if(!isValidPosition(&fallingPiece, 0, yPos)) break;
+		}
+		fallingPiece.y+=yPos-1;
 	}
+
 
 	if(!timer_falling) {
-//		display_clear();
-//		if(!isValidPosition(&fallingPiece, 0, 1)) {
-////			addToBoard(&fallingPiece);
-////			removeCompleteLines();
-//			begin=0;
-//		}
-//		else {
-//			fallingPiece.y++;
-//		}
-		fallingPiece.y++;
-		if(fallingPiece.y==15) getNewPiece(&fallingPiece);
-		timer_falling=TIMER_MSEC(600);
+		if(isValidPosition(&fallingPiece, 0, 1))
+			fallingPiece.y++;
+		else {
+			addToPlane(&fallingPiece);
+			removeCompleteLines();
+			fallingPiece.active=0;
+		}
+		timer_falling=TIMER_MSEC(fallingTime_ms);
 	}
-
-	drawPiece(&fallingPiece);
+	display_clear();
+	display_drawPlane(plane);
+	if(fallingPiece.active) drawPiece(&fallingPiece);
+	display_refresh(0);
 
 	if(!timer_fps) {
 
-		display_refresh();
 		timer_fps=TIMER_MSEC((timer_var_t)(1000.0/FPS));
 	}
+	return 1;
 }

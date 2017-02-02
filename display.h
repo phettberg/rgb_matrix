@@ -17,8 +17,9 @@ extern timer_var_t timer_display;
 extern uint8_t backindex;
 extern uint8_t matrixbuffer[2][HEIGHT][WIDTH];
 void display_drawPixel(int16_t x, int16_t y, uint8_t color);
+void display_drawPlane(uint8_t array[][WIDTH]);
 void display_process(void);
-void display_refresh(void);
+void display_refresh(uint8_t cp);
 void display_clear(void);
 uint8_t *display_backbuffer(void);
 
