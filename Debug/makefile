@@ -15,6 +15,7 @@ ORDERED_OBJS += \
 "./main.obj" \
 "./timer.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
+"./app/game.obj" \
 "./hal/hal.obj" \
 "./hal/hal_tiva/cmsis/Source/system_FM4F.obj" \
 "../tm4c123gh6pm.cmd" \
@@ -29,9 +30,11 @@ RMDIR := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include app/subdir_vars.mk
 -include hal/subdir_vars.mk
 -include hal/hal_tiva/cmsis/Source/subdir_vars.mk
 -include subdir_rules.mk
+-include app/subdir_rules.mk
 -include hal/subdir_rules.mk
 -include hal/hal_tiva/cmsis/Source/subdir_rules.mk
 -include objects.mk
@@ -162,8 +165,8 @@ rgb_matrix.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "control.d" "display.d" "highside.d" "lowside.d" "main.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "hal/hal.d" "hal/hal_tiva/cmsis/Source/system_FM4F.d" 
-	-$(RM) "control.obj" "display.obj" "highside.obj" "lowside.obj" "main.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "hal/hal.obj" "hal/hal_tiva/cmsis/Source/system_FM4F.obj" 
+	-$(RM) "control.d" "display.d" "highside.d" "lowside.d" "main.d" "timer.d" "tm4c123gh6pm_startup_ccs.d" "app/game.d" "hal/hal.d" "hal/hal_tiva/cmsis/Source/system_FM4F.d" 
+	-$(RM) "control.obj" "display.obj" "highside.obj" "lowside.obj" "main.obj" "timer.obj" "tm4c123gh6pm_startup_ccs.obj" "app/game.obj" "hal/hal.obj" "hal/hal_tiva/cmsis/Source/system_FM4F.obj" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

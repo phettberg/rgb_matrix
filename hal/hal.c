@@ -137,7 +137,6 @@ void hal_init(void) {
 }
 
 void hal_process(void) {
-
 	if(timer_100us) {
 		TIMER0->IMR &= ~(1<<0);
 		timer_tick(timers, timer_100us*100);

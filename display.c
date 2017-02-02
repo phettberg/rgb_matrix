@@ -32,6 +32,7 @@ uint16_t actRow = 0x0001;
 uint8_t row = 0;
 
 uint8_t matrixbuffer[2][HEIGHT][WIDTH];
+uint8_t (*pBuffer)[HEIGHT][WIDTH] = matrixbuffer;
 uint8_t backindex=0;
 uint8_t swapBuffer=0;
 
@@ -55,7 +56,6 @@ void display_refresh(void) {
 
 void display_process() {
 	if(!timer_display) {
-		GPIOF->DATA ^= (1<<2);
 		timer_display=TIMER_100USEC(5);
 		if(!row && swapBuffer) {
 			backindex=1-backindex;
@@ -77,4 +77,8 @@ void display_process() {
 		actRow = (actRow << 1) | (actRow >> (15));
 		row=(row+1)&15;
 	}
+}
+
+uint8_t *display_backbuffer() {
+	return &matrixbuffer[backindex][0][0];
 }

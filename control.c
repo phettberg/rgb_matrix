@@ -82,7 +82,7 @@ uint8_t centerPressed(void) {
 
 void _callback(uint8_t pin) {
 	debounceFlags |= (1<<pin);
-	if(!debounce) timer_debounce=TIMER_MSEC(200);
+	if(!debounce) timer_debounce=TIMER_MSEC(170);
 	debounce=1;
 
 }

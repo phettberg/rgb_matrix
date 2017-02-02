@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Debug/app/subdir_rules.mk=UTF-8
+encoding//Debug/app/subdir_vars.mk=UTF-8
 encoding//Debug/hal/TM4C/Source/subdir_rules.mk=UTF-8
 encoding//Debug/hal/TM4C/Source/subdir_vars.mk=UTF-8
 encoding//Debug/hal/hal_tiva/cmsis/Source/CCS/subdir_rules.mk=UTF-8
@@ -10,6 +12,8 @@ encoding//Debug/hal/hal_tiva/subdir_vars.mk=UTF-8
 encoding//Debug/hal/subdir_rules.mk=UTF-8
 encoding//Debug/hal/subdir_vars.mk=UTF-8
 encoding//Debug/makefile=UTF-8
+encoding//Debug/modules/subdir_rules.mk=UTF-8
+encoding//Debug/modules/subdir_vars.mk=UTF-8
 encoding//Debug/objects.mk=UTF-8
 encoding//Debug/sources.mk=UTF-8
 encoding//Debug/subdir_rules.mk=UTF-8
