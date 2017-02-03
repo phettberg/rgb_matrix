@@ -12,9 +12,7 @@
 #include "string.h"
 #include "time.h"
 
-typedef enum {LEFT, DOWN, RIGHT} direction_t;
-
-#define FPS	100
+#define FPS	25
 
 #define PIECEWIDTH 	 4
 #define PIECEHEIGHT	 4
@@ -30,13 +28,10 @@ typedef struct {
 	int16_t y;
 } piece_t;
 
-direction_t direction;
 piece_t fallingPiece;
 
 timer_var_t timer_fps;
 timer_var_t timer_falling;
-timer_var_t timer_moveSideways;
-timer_var_t timer_moveDown;
 
 timer_var_t fallingTime_ms;
 
@@ -91,9 +86,8 @@ static uint8_t isValidPosition(piece_t *piece, int16_t adjX, int16_t adjY) {
 				continue;
 			if(!isOnPlane(x + piece->x + adjX, y + piece->y + adjY))
 				return 0;
-			if(plane[y + piece->y + adjY][x + piece->x + adjX] != 0) {
-					return 0;
-			}
+			if(plane[y + piece->y + adjY][x + piece->x + adjX] != 0)
+				return 0;
 		}
 	}
 	return 1;
@@ -191,10 +185,10 @@ uint8_t game_process(void) {
 	display_clear();
 	display_drawPlane(plane);
 	if(fallingPiece.active) drawPiece(&fallingPiece);
-	display_refresh(0);
+
 
 	if(!timer_fps) {
-
+		display_refresh(0);
 		timer_fps=TIMER_MSEC((timer_var_t)(1000.0/FPS));
 	}
 	return 1;

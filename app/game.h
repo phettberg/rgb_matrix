@@ -12,8 +12,6 @@
 
 extern timer_var_t timer_fps;
 extern timer_var_t timer_falling;
-extern timer_var_t timer_moveSideways;
-extern timer_var_t timer_moveDown;
 
 void game_init(void);
 uint8_t game_process(void);

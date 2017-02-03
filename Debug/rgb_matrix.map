@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v16.9.1                   
 ******************************************************************************
->> Linked Thu Feb  2 19:17:59 2017
+>> Linked Fri Feb  3 21:59:43 2017
 
 OUTPUT FILE NAME:   <rgb_matrix.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00001665
@@ -11,23 +11,23 @@ MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00040000  0000193a  0003e6c6  R  X
-  SRAM                  20000000   00008000  000006e7  00007919  RW X
+  FLASH                 00000000   00040000  00001932  0003e6ce  R  X
+  SRAM                  20000000   00008000  000006df  00007921  RW X
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00001940   00001940    r-x
+00000000    00000000    00001938   00001938    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
   0000026c    0000026c    00001602   00001602    r-x .text
-  00001870    00001870    0000001c   0000001c    r-- .const
-  00001890    00001890    000000b0   000000b0    r-- .cinit
-20000000    20000000    000006e8   00000000    rw-
-  20000000    20000000    000002db   00000000    rw- .bss
-  200002dc    200002dc    0000020c   00000000    rw- .data
-  200004e8    200004e8    00000200   00000000    rw- .stack
+  00001870    00001870    00000014   00000014    r-- .const
+  00001888    00001888    000000b0   000000b0    r-- .cinit
+20000000    20000000    000006e0   00000000    rw-
+  20000000    20000000    000002d3   00000000    rw- .bss
+  200002d4    200002d4    0000020c   00000000    rw- .data
+  200004e0    200004e0    00000200   00000000    rw- .stack
 
 
 SECTION ALLOCATION MAP
@@ -69,20 +69,20 @@ section   page    origin      length       input sections
                   00001868    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.obj (.text)
                   0000186c    00000002                                   : startup.obj (.text)
 
-.const     0    00001870    0000001c     
-                  00001870    0000001c     main.obj (.const:timers)
+.const     0    00001870    00000014     
+                  00001870    00000014     main.obj (.const:timers)
 
-.cinit     0    00001890    000000b0     
-                  00001890    00000089     (.cinit..data.load) [load image, compression = lzss]
-                  00001919    00000003     --HOLE-- [fill = 0]
-                  0000191c    0000000c     (__TI_handler_table)
-                  00001928    00000008     (.cinit..bss.load) [load image, compression = zero_init]
-                  00001930    00000010     (__TI_cinit_table)
+.cinit     0    00001888    000000b0     
+                  00001888    00000089     (.cinit..data.load) [load image, compression = lzss]
+                  00001911    00000003     --HOLE-- [fill = 0]
+                  00001914    0000000c     (__TI_handler_table)
+                  00001920    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00001928    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
 
-.bss       0    20000000    000002db     UNINITIALIZED
+.bss       0    20000000    000002d3     UNINITIALIZED
                   20000000    00000120     rtsv7M4_T_le_v4SPD16_eabi.lib : trgmsg.obj (.bss:_CIOBUF_)
                   20000120    00000100     (.common:matrixbuffer)
                   20000220    00000080     (.common:plane)
@@ -95,24 +95,22 @@ section   page    origin      length       input sections
                   200002c4    00000004     (.common:timer_display)
                   200002c8    00000004     (.common:timer_falling)
                   200002cc    00000004     (.common:timer_fps)
-                  200002d0    00000004     (.common:timer_moveDown)
-                  200002d4    00000004     (.common:timer_moveSideways)
-                  200002d8    00000003     (.common:colBytes)
+                  200002d0    00000003     (.common:colBytes)
 
-.data      0    200002dc    0000020c     UNINITIALIZED
-                  200002dc    000001c0     game.obj (.data:pieces)
-                  2000049c    00000020     hal.obj (.data:PORTA_callbacks)
-                  200004bc    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
-                  200004c8    0000000b     display.obj (.data)
-                  200004d3    00000001     game.obj (.data)
-                  200004d4    00000008     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.data:$O1$$)
-                  200004dc    00000004                                   : rand.obj (.data)
-                  200004e0    00000004                                   : stkdepth_vars.obj (.data)
-                  200004e4    00000003     control.obj (.data)
-                  200004e7    00000001     hal.obj (.data)
+.data      0    200002d4    0000020c     UNINITIALIZED
+                  200002d4    000001c0     game.obj (.data:pieces)
+                  20000494    00000020     hal.obj (.data:PORTA_callbacks)
+                  200004b4    0000000c     rtsv7M4_T_le_v4SPD16_eabi.lib : exit.obj (.data:$O1$$)
+                  200004c0    0000000b     display.obj (.data)
+                  200004cb    00000001     game.obj (.data)
+                  200004cc    00000008     rtsv7M4_T_le_v4SPD16_eabi.lib : _lock.obj (.data:$O1$$)
+                  200004d4    00000004                                   : rand.obj (.data)
+                  200004d8    00000004                                   : stkdepth_vars.obj (.data)
+                  200004dc    00000003     control.obj (.data)
+                  200004df    00000001     hal.obj (.data)
 
-.stack     0    200004e8    00000200     UNINITIALIZED
-                  200004e8    00000200     --HOLE--
+.stack     0    200004e0    00000200     UNINITIALIZED
+                  200004e0    00000200     --HOLE--
 
 MODULE SUMMARY
 
@@ -125,14 +123,14 @@ MODULE SUMMARY
        highside.obj                   304    0         8      
        lowside.obj                    212    0         4      
        timer.obj                      128    0         0      
-       main.obj                       60     28        0      
+       main.obj                       60     20        0      
     +--+------------------------------+------+---------+---------+
-       Total:                         1552   648       293    
+       Total:                         1552   640       293    
                                                               
     ./app/
-       game.obj                       1292   0         605    
+       game.obj                       1292   0         597    
     +--+------------------------------+------+---------+---------+
-       Total:                         1292   0         605    
+       Total:                         1292   0         597    
                                                               
     ./hal/
        hal.obj                        936    0         33     
@@ -167,19 +165,19 @@ MODULE SUMMARY
        Stack:                         0      0         512    
        Linker Generated:              0      173       0      
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   5634   821       1767   
+       Grand Total:                   5634   813       1759   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00001930 records: 2, size/record: 8, table size: 16
-	.data: load addr=00001890, load size=00000089 bytes, run addr=200002dc, run size=0000020c bytes, compression=lzss
-	.bss: load addr=00001928, load size=00000008 bytes, run addr=20000000, run size=000002db bytes, compression=zero_init
+__TI_cinit_table @ 00001928 records: 2, size/record: 8, table size: 16
+	.data: load addr=00001888, load size=00000089 bytes, run addr=200002d4, run size=0000020c bytes, compression=lzss
+	.bss: load addr=00001920, load size=00000008 bytes, run addr=20000000, run size=000002d3 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 0000191c records: 3, size/record: 4, table size: 12
+__TI_handler_table @ 00001914 records: 3, size/record: 4, table size: 12
 	index: 0, handler: __TI_decompress_lzss
 	index: 1, handler: __TI_decompress_none
 	index: 2, handler: __TI_zero_init
@@ -208,19 +206,19 @@ UNDEFED   SHT$$INIT_ARRAY$$Base
 UNDEFED   SHT$$INIT_ARRAY$$Limit         
 00000a59  TIMER0A_Handler                
 20000000  __CIOBUF_                      
-200006e8  __STACK_END                    
+200006e0  __STACK_END                    
 00000200  __STACK_SIZE                   
-200006e8  __STACK_TOP                    
-00001930  __TI_CINIT_Base                
-00001940  __TI_CINIT_Limit               
-0000191c  __TI_Handler_Table_Base        
-00001928  __TI_Handler_Table_Limit       
+200006e0  __STACK_TOP                    
+00001928  __TI_CINIT_Base                
+00001938  __TI_CINIT_Limit               
+00001914  __TI_Handler_Table_Base        
+00001920  __TI_Handler_Table_Limit       
 00001525  __TI_auto_init                 
-200004bc  __TI_cleanup_ptr               
+200004b4  __TI_cleanup_ptr               
 00001595  __TI_decompress_lzss           
 00001835  __TI_decompress_none           
-200004c0  __TI_dtors_ptr                 
-200004c4  __TI_enable_exit_profile_output
+200004b8  __TI_dtors_ptr                 
+200004bc  __TI_enable_exit_profile_output
 ffffffff  __TI_pprof_out_hndl            
 ffffffff  __TI_prof_data_size            
 ffffffff  __TI_prof_data_start           
@@ -240,34 +238,34 @@ ffffffff  __TI_prof_data_start
 ffffffff  __binit__                      
 ffffffff  __c_args__                     
 00001523  __mpu_init                     
-200004e8  __stack                        
+200004e0  __stack                        
 00001843  __time32                       
 000017e1  _args_main                     
 00001665  _c_int00                       
 000010c7  _callback                      
 00000887  _enableNVIC                    
-200004d4  _lock                          
+200004cc  _lock                          
 00001807  _nop                           
 000017ff  _register_lock                 
 000017f9  _register_unlock               
 0000186d  _system_post_cinit             
 00001869  _system_pre_init               
-200004d8  _unlock                        
+200004d0  _unlock                        
 000016bd  abort                          
-200004c8  actRow                         
-200004d0  backindex                      
+200004c0  actRow                         
+200004c8  backindex                      
 ffffffff  binit                          
 00001093  buttonPressed                  
 000010ad  centerPressed                  
-200002d8  colBytes                       
+200002d0  colBytes                       
 00001119  control_init                   
 000010f5  control_process                
-200004d2  copy                           
+200004ca  copy                           
 0000170d  copy_in                        
 200002b8  ctrlPort                       
-200004e6  debounce                       
-200004e5  debounceFlags                  
-00001013  display_backbuffer             
+200004de  debounce                       
+200004dd  debounceFlags                  
+00001015  display_backbuffer             
 00000eb1  display_clear                  
 00000e45  display_drawPixel              
 00000e99  display_drawPlane              
@@ -281,7 +279,7 @@ ffffffff  binit
 000005b5  game_init                      
 000005eb  game_process                   
 000005d1  game_restart                   
-200004d3  game_start                     
+200004cb  game_start                     
 00000869  gpio_alternateFunctions        
 0000082d  gpio_digitalEnable             
 0000080f  gpio_direction                 
@@ -294,34 +292,32 @@ ffffffff  binit
 00001189  highside_init                  
 00001235  highside_setOutput             
 200002b0  hsDriver                       
-200004e4  inputFlags                     
+200004dc  inputFlags                     
 0000105f  leftPressed                    
 000012b9  lowside_init                   
 00001337  lowside_writeOutput            
 000017a5  main                           
-200004e0  main_func_sp                   
+200004d8  main_func_sp                   
 20000120  matrixbuffer                   
 0000138d  memcpy                         
 000014b1  memset                         
-200004cc  pBuffer                        
-200002dc  pieces                         
+200004c4  pBuffer                        
+200002d4  pieces                         
 20000220  plane                          
 0000176f  rand                           
 00001079  rightPressed                   
-200004ca  row                            
+200004c2  row                            
 00000989  spi_init                       
 00001759  srand                          
 0000180d  strcpy                         
 00001821  strlen                         
-200004d1  swapBuffer                     
+200004c9  swapBuffer                     
 00001843  time                           
 200002c0  timer_debounce                 
 200002c4  timer_display                  
 200002c8  timer_falling                  
 200002cc  timer_fps                      
 00000a05  timer_init                     
-200002d0  timer_moveDown                 
-200002d4  timer_moveSideways             
 00001429  timer_tick                     
 00001870  timers                         
 000009e9  writeSPI                       
@@ -367,7 +363,7 @@ address   name
 00000eb1  display_clear                  
 00000ec7  display_refresh                
 00000ee1  display_process                
-00001013  display_backbuffer             
+00001015  display_backbuffer             
 00001045  downPressed                    
 0000105f  leftPressed                    
 00001079  rightPressed                   
@@ -421,10 +417,10 @@ address   name
 00001869  _system_pre_init               
 0000186d  _system_post_cinit             
 00001870  timers                         
-0000191c  __TI_Handler_Table_Base        
-00001928  __TI_Handler_Table_Limit       
-00001930  __TI_CINIT_Base                
-00001940  __TI_CINIT_Limit               
+00001914  __TI_Handler_Table_Base        
+00001920  __TI_Handler_Table_Limit       
+00001928  __TI_CINIT_Base                
+00001938  __TI_CINIT_Limit               
 20000000  __CIOBUF_                      
 20000120  matrixbuffer                   
 20000220  plane                          
@@ -436,29 +432,27 @@ address   name
 200002c4  timer_display                  
 200002c8  timer_falling                  
 200002cc  timer_fps                      
-200002d0  timer_moveDown                 
-200002d4  timer_moveSideways             
-200002d8  colBytes                       
-200002dc  pieces                         
-200004bc  __TI_cleanup_ptr               
-200004c0  __TI_dtors_ptr                 
-200004c4  __TI_enable_exit_profile_output
-200004c8  actRow                         
-200004ca  row                            
-200004cc  pBuffer                        
-200004d0  backindex                      
-200004d1  swapBuffer                     
-200004d2  copy                           
-200004d3  game_start                     
-200004d4  _lock                          
-200004d8  _unlock                        
-200004e0  main_func_sp                   
-200004e4  inputFlags                     
-200004e5  debounceFlags                  
-200004e6  debounce                       
-200004e8  __stack                        
-200006e8  __STACK_END                    
-200006e8  __STACK_TOP                    
+200002d0  colBytes                       
+200002d4  pieces                         
+200004b4  __TI_cleanup_ptr               
+200004b8  __TI_dtors_ptr                 
+200004bc  __TI_enable_exit_profile_output
+200004c0  actRow                         
+200004c2  row                            
+200004c4  pBuffer                        
+200004c8  backindex                      
+200004c9  swapBuffer                     
+200004ca  copy                           
+200004cb  game_start                     
+200004cc  _lock                          
+200004d0  _unlock                        
+200004d8  main_func_sp                   
+200004dc  inputFlags                     
+200004dd  debounceFlags                  
+200004de  debounce                       
+200004e0  __stack                        
+200006e0  __STACK_END                    
+200006e0  __STACK_TOP                    
 ffffffff  __TI_pprof_out_hndl            
 ffffffff  __TI_prof_data_size            
 ffffffff  __TI_prof_data_start           
@@ -468,4 +462,4 @@ ffffffff  binit
 UNDEFED   SHT$$INIT_ARRAY$$Base          
 UNDEFED   SHT$$INIT_ARRAY$$Limit         
 
-[136 symbols]
+[134 symbols]

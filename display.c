@@ -13,9 +13,6 @@
 
 #include "hal.h"
 
-#define WIDTH	8
-#define HEIGHT	16
-
 #define RED		0x01
 #define GREEN	0x02
 #define BLUE	0x04
@@ -79,7 +76,7 @@ void display_process() {
 		colBytes.green =0;
 //		actRow = (actRow << 1) | (actRow >> (15));
 		row=(row+1)&15;
-		timer_display=TIMER_100USEC(2);
+		timer_display=TIMER_100USEC(6);
 	}
 }
 
