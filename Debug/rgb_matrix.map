@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v16.9.1                   
 ******************************************************************************
->> Linked Fri Feb  3 21:59:43 2017
+>> Linked Fri Feb  3 22:12:48 2017
 
 OUTPUT FILE NAME:   <rgb_matrix.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 00001665
@@ -117,15 +117,10 @@ MODULE SUMMARY
        Module                         code   ro data   rw data
        ------                         ----   -------   -------
     ./
-       display.obj                    512    0         274    
        tm4c123gh6pm_startup_ccs.obj   12     620       0      
-       control.obj                    324    0         7      
-       highside.obj                   304    0         8      
-       lowside.obj                    212    0         4      
-       timer.obj                      128    0         0      
        main.obj                       60     20        0      
     +--+------------------------------+------+---------+---------+
-       Total:                         1552   640       293    
+       Total:                         72     640       0      
                                                               
     ./app/
        game.obj                       1292   0         597    
@@ -136,6 +131,15 @@ MODULE SUMMARY
        hal.obj                        936    0         33     
     +--+------------------------------+------+---------+---------+
        Total:                         936    0         33     
+                                                              
+    ./modules/
+       display.obj                    512    0         274    
+       control.obj                    324    0         7      
+       highside.obj                   304    0         8      
+       lowside.obj                    212    0         4      
+       timer.obj                      128    0         0      
+    +--+------------------------------+------+---------+---------+
+       Total:                         1480   0         293    
                                                               
     /home/patrick/ti/ccsv6/tools/compiler/ti-cgt-arm_16.9.1.LTS/lib/rtsv7M4_T_le_v4SPD16_eabi.lib
        trgdrv.obj                     804    0         8      

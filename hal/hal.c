@@ -118,10 +118,6 @@ void timer_init(void) {
 	NVIC_EnableIRQ(TIMER0A_IRQn);
 	TIMER0->CTL |= (1<<0);
 }
-//		if((TIMER0->RIS & 0x00000001)==1) {
-//			TIMER0->ICR |= (1<<0);
-//			GPIOF->DATA ^= (1<<2);
-//		}
 
 static uint8_t timer_100us=0;
 

@@ -1,1 +1,1 @@
-"./control.obj" "./display.obj" "./highside.obj" "./lowside.obj" "./main.obj" "./timer.obj" "./tm4c123gh6pm_startup_ccs.obj" "./app/game.obj" "./hal/hal.obj" "./hal/hal_tiva/cmsis/Source/system_FM4F.obj" "../tm4c123gh6pm.cmd" -llibc.a 
+"./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./app/game.obj" "./hal/hal.obj" "./hal/hal_tiva/cmsis/Source/system_FM4F.obj" "./modules/control.obj" "./modules/display.obj" "./modules/highside.obj" "./modules/lowside.obj" "./modules/timer.obj" "../tm4c123gh6pm.cmd" -llibc.a 

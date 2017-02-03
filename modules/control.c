@@ -25,31 +25,6 @@ uint8_t inputFlags = 0;
 uint8_t debounceFlags = 0;
 uint8_t debounce = 0;
 
-
-//void (*moveDown_cb) (void);
-//void (*moveLeft_cb) (void);
-//void (*moveRight_cb) (void);
-//void (*button_cb) (void);
-//void (*center_cb) (void);
-
-//void callback(uint8_t pin) {
-//	if (pin == 2 && moveDown_cb) {
-//		moveDown_cb();
-//	}
-//	if (pin == 3 && moveLeft_cb) {
-//			moveLeft_cb();
-//	}
-//	if (pin == 4 && moveRight_cb) {
-//			moveRigth_cb();
-//	}
-//	if (pin == 5 && button_cb) {
-//			button_cb();
-//	}
-//	if (pin == 6 && center_cb) {
-//			center_cb();
-//	}
-//}
-
 uint8_t downPressed(void) {
 	if(!(inputFlags & DOWN)) return 0;
 	inputFlags &= ~DOWN;
@@ -88,7 +63,6 @@ void _callback(uint8_t pin) {
 }
 
 void control_process(void) {
-
 	if(!timer_debounce && debounce==1) {
 		inputFlags = debounceFlags;
 		debounceFlags=0x00;
@@ -106,7 +80,6 @@ void control_init(void) {
 	gpio_enableInterrupt(GPIOA_AHB, 4, _callback);
 	gpio_enableInterrupt(GPIOA_AHB, 5, _callback);
 	gpio_enableInterrupt(GPIOA_AHB, 6, _callback);
-//	gSW1Callback = cb;
 }
 
 

@@ -69,12 +69,10 @@ void display_process() {
 		}
 		highside_clearOutput(); /* Disable rows */
 		lowside_writeOutput(colBytes.red, colBytes.green, colBytes.blue); /* Set column pixel for current row */
-//		highside_setOutput(actRow);
 		highside_setOutput(row); /* Enable current row */
 		colBytes.blue=0;
 		colBytes.red =0;
 		colBytes.green =0;
-//		actRow = (actRow << 1) | (actRow >> (15));
 		row=(row+1)&15;
 		timer_display=TIMER_100USEC(6);
 	}

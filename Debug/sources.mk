@@ -115,4 +115,5 @@ SUBDIRS := \
 app \
 hal \
 hal/hal_tiva/cmsis/Source \
+modules \
 

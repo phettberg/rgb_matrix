@@ -13,5 +13,4 @@
 extern timer_array_t timers;
 
 
-
 #endif /* MAIN_H_ */
