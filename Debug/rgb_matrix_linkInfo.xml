@@ -2,7 +2,7 @@
 <link_info>
    <banner>TI ARM Linker Unix v16.9.1.LTS</banner>
    <copyright>Copyright (c) 1996-2015 Texas Instruments Incorporated</copyright>
-   <link_time>0x5894f250</link_time>
+   <link_time>0x589530d8</link_time>
    <link_errors>0x0</link_errors>
    <output_file>rgb_matrix.out</output_file>
    <entry_point>
